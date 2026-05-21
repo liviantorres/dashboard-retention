@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Bahiana&family=Bahianita&family=Lexend+Deca:wght@100..900&family=Poppins:wght@100..900&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-bahiana: "Bahiana", cursive;
+  --font-bahianita: "Bahianita", cursive;
+  --font-lexend: "Lexend Deca", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+}
+
+@keyframes swing {
+  0%   { transform: rotate(0deg) translateY(0px); }
+  25%  { transform: rotate(1.5deg) translateY(-2px); }
+  50%  { transform: rotate(0deg) translateY(-4px); }
+  75%  { transform: rotate(-1.5deg) translateY(-2px); }
+  100% { transform: rotate(0deg) translateY(0px); }
+}
+
+.swinging {
+  animation: swing 6s ease-in-out infinite;
+  transform-origin: top center;
+  will-change: transform;
+}
