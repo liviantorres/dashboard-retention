@@ -89,7 +89,7 @@ export default function Register() {
           <img
             src="/src/assets/mobile-ufc.png"
             alt="Móbile de madeira UFC"
-            className="h-[120%] object-contain absolute -top-12 right-4 drop-shadow-md swinging"
+            className="h-[120%] object-contain absolute -top-12 right-23 drop-shadow-md swinging"
           />
         </div>
       </div>

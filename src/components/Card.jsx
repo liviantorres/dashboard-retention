@@ -17,6 +17,10 @@ const variants = {
     bg: "bg-blue-100",
     text: "text-blue-500",
   },
+  book:{
+    bg:"bg-blue-50",
+    text:"text-blue-600"
+  }
 };
 
 export default function Card({
@@ -30,13 +34,12 @@ export default function Card({
 
   return (
     <div className="flex items-center justify-between p-5 bg-white rounded-lg border border-gray-300 font-lexend">
-      {/* Texto */}
       <div className="flex flex-col gap-2">
         <span className="text-gray-600 font-medium text-sm">{title}</span>
 
         <span className="text-4xl font-bold text-black">{value}</span>
         <span
-          className={`text-gray-500 font-medium h-5 ${
+          className={`text-gray-500 text-sm font-medium h-5 ${
             percentage ? "opacity-100" : "opacity-0"
           }`}
         >

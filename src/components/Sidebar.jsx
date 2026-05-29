@@ -40,12 +40,14 @@ export default function Sidebar({ collapsed, setCollapsed, items, user }) {
               <Link
                 key={index}
                 to={item.link}
-                className={`flex items-center gap-3 p-2 rounded-lg transition-all duration-200 ease-in-out
-                    ${
-                    isActive
-                        ? "bg-blue-600 text-white font-medium"
-                        : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
-                    }`}
+                className={`flex items-center ${
+                  collapsed ? "justify-center" : "justify-start"
+                } gap-3 p-2 rounded-lg transition-all duration-200 ease-in-out
+                ${
+                  isActive
+                    ? "bg-blue-600 text-white font-medium"
+                    : "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+                }`}
               >
                 {item.icon}
 
