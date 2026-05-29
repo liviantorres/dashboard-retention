@@ -626,3 +626,18 @@ export function getRelacaoIRAReprovacoes(alunos) {
       reprovacoes: Number(a.quantidade_de_reprovações),
     }));
 }
+
+export function getMediaIRA(alunos, filtro = null) {
+  if (!alunos.length) return 0;
+
+  const base = filtro ? alunos.filter(filtro) : alunos;
+
+  if (!base.length) return 0;
+
+  const soma = base.reduce(
+    (acc, a) => acc + Number(a.ira || 0),
+    0
+  );
+
+  return soma / base.length;
+}

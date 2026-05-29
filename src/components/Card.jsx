@@ -37,7 +37,7 @@ export default function Card({
       <div className="flex flex-col gap-2">
         <span className="text-gray-600 font-medium text-sm">{title}</span>
 
-        <span className="text-4xl font-bold text-black">{value}</span>
+        <span className="text-3xl font-bold text-black">{value}</span>
         <span
           className={`text-gray-500 text-sm font-medium h-5 ${
             percentage ? "opacity-100" : "opacity-0"

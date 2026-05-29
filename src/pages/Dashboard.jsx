@@ -14,6 +14,7 @@ import {
   getTaxaRetencaoTempo,
   getTaxaRetencaoDesempenho,
   getTaxaReprovacao,
+  getMediaIRA
 } from "../services/dashboardServices";
 
 export default function Dashboard() {
@@ -44,32 +45,16 @@ export default function Dashboard() {
   const totalRetidos = retidos.length;
 
   const taxaRetencao =
-    totalAlunos > 0 ? ((totalRetidos / totalAlunos) * 100).toFixed(2) : "0.00";
-
-  const mediaIRA =
-    totalAlunos > 0
-      ? (
-          alunos.reduce((acc, a) => acc + (Number(a.ira) || 0), 0) / totalAlunos
-        ).toFixed(2)
-      : "0.00";
-
-  const mediaIRARetidos =
-    totalRetidos > 0
-      ? (
-          retidos.reduce((acc, a) => acc + (Number(a.ira) || 0), 0) /
-          totalRetidos
-        ).toFixed(2)
-      : "0.00";
-
-  const taxaTempo = alunos?.length ? getTaxaRetencaoTempo(alunos) : 0;
-
-  const taxaDesempenho = alunos?.length ? getTaxaRetencaoDesempenho(alunos) : 0;
+    totalAlunos > 0 ? ((totalRetidos / totalAlunos) * 100).toFixed(1) : "0.00";
 
   const taxaReprovacao = alunos?.length ? getTaxaReprovacao(alunos) : 0;
 
   const dataCurso = getRetencaoPorCurso(alunos);
   const dataEvolutionCourse = getEvolucaoRetencao(alunos);
   const dataCountCourse = getRetidosPorAno(alunos);
+
+  const mediaIRA = getMediaIRA(alunos);
+  const mediaIRARetidos = getMediaIRA(alunos, isRetido);
 
   if (loading) {
     return (
@@ -87,9 +72,8 @@ export default function Dashboard() {
         Visão geral da retenção acadêmica
       </p>
 
-
       <div className="pl-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pr-10 pb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 pr-10 pb-6">
           <Card
             title="Total de alunos"
             value={totalAlunos}
@@ -107,44 +91,29 @@ export default function Dashboard() {
 
           <Card
             title="Média do IRA (Geral)"
-            value={mediaIRA}
+            value={`${mediaIRA.toFixed(2)}`}
             icon={<GraduationCap size={28} />}
             variant="success"
           />
 
           <Card
             title="Média do IRA (Retidos)"
-            value={mediaIRARetidos}
+            value={`${mediaIRARetidos.toFixed(2)}`}
             icon={<GraduationCap size={28} />}
             variant="danger"
           />
-        </div>
-
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 pr-10 pb-6">
-          <Card
+            <Card
             title="Taxa de Retenção"
             value={`${taxaRetencao}%`}
             icon={<TriangleAlert size={28} />}
             variant="info"
           />
 
-          <Card
-            title="Taxa de Retenção"
-            value={`${taxaTempo.toFixed(2)}%`}
-            icon={<TriangleAlert size={28} />}
-            percentage="(por tempo)"
-            variant="info"
-          />
-          <Card
-            title="Taxa de Retenção"
-            value={`${taxaDesempenho.toFixed(2)}%`}
-            icon={<TriangleAlert size={28} />}
-            percentage="(por desempenho)"
-            variant="info"
-          />
         </div>
 
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 pr-10 pb-6">
+        
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pr-10">
           <RetentionByCourseChart data={dataCurso} />

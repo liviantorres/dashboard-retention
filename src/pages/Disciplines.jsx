@@ -3,12 +3,18 @@ import Layout from "../components/Layout";
 import Card from "../components/Card";
 import { TriangleAlert, Book } from "lucide-react";
 import RankingDisciplinasChart from "../components/RankingDisciplinasChart";
+import IRAvsReprovacoesChart from "../components/IRAvsReprovacoesChart";
+import { Table } from "../components/Table";
 import {
   getRankingDisciplinas,
   getTaxaReprovacao,
   getTotalDisciplinas,
+  getRelacaoIRAReprovacoes,
+  getMediaIRA,
+  isRetido
 } from "../services/dashboardServices";
 import useAlunos from "../hooks/useAlunos";
+import IRAMedioChart from "../components/IRAMedioChart";
 
 export default function Disciplines() {
   const alunosSI = useAlunos("/data/alunos-si.csv");
@@ -40,6 +46,13 @@ export default function Disciplines() {
 
   const taxaReprovacao = getTaxaReprovacao(alunosGeral);
   const totalDisciplinas = getTotalDisciplinas(alunosGeral);
+
+  const dataIRA = alunosGeral?.length
+    ? getRelacaoIRAReprovacoes(alunosGeral)
+    : [];
+
+  const mediaIRA = getMediaIRA(alunosGeral);
+  const mediaIRARetidos = getMediaIRA(alunosGeral, isRetido);
 
   if (loading) {
     return (
@@ -89,6 +102,15 @@ export default function Disciplines() {
         <RankingDisciplinasChart data={dataTI} course="TI" />
         <RankingDisciplinasChart data={dataEngenharia} course="Engenharias" />
       </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pr-10 pb-6 pl-10">
+        <IRAvsReprovacoesChart data={dataIRA} />
+        <IRAMedioChart geral={mediaIRA} retidos={mediaIRARetidos} />
+      </div>
+
+      <h2 className="text-base font-regular  mb-4 font-lexend">
+        Detalhamento por Disciplina
+      </h2>
+      <Table />
     </Layout>
   );
 }
