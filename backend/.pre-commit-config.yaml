@@ -14,12 +14,12 @@ repos:
             "--rcfile=backend/.pylintrc",
             "--load-plugins=pylint.extensions.docparams",
           ]
-  
+
   - repo: local
     hooks:
       - id: requirements
         name: requirements
-        entry: bash -c 'venv/bin/pip3 freeze > requirements.txt; git add requirements.txt'
+        entry: powershell -Command ".\backend\venv\Scripts\pip.exe freeze > backend/requirements.txt; git add backend/requirements.txt"
         language: system
         pass_filenames: false
-        stages: [pre-commit]
+        files: ^backend/
